@@ -1,0 +1,31 @@
+<div>
+  <h1 class="text-2xl font-extrabold text-gray-900">Mis productos</h1>
+  <p class="mt-1 text-sm text-gray-500">Documentación, manuales y guías de los equipos que has adquirido.</p>
+
+  <div class="mt-8 space-y-6">
+    @for (p of productosAdquiridos; track p!.id) {
+      <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-900/5">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <img [src]="p!.imagen" [alt]="p!.nombre" class="h-20 w-20 rounded-lg object-cover" />
+          <div>
+            <h2 class="text-lg font-bold text-gray-900">{{ p!.nombre }}</h2>
+            <p class="text-sm text-gray-500">{{ p!.categoria }}</p>
+          </div>
+        </div>
+        <ul class="mt-4 divide-y divide-gray-100 rounded-lg border border-gray-100">
+          @for (doc of p!.documentos; track doc.nombre) {
+            <li class="flex items-center justify-between px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="rounded-md bg-primary-50 px-2 py-1 text-xs font-semibold uppercase text-primary-700">{{ doc.tipo }}</span>
+                <span class="text-sm text-gray-700">{{ doc.nombre }}</span>
+              </div>
+              <a [href]="doc.url" class="text-sm font-semibold text-primary-600 hover:text-primary-700">Descargar</a>
+            </li>
+          }
+        </ul>
+      </div>
+    } @empty {
+      <p class="text-sm text-gray-500">Aún no tienes productos adquiridos.</p>
+    }
+  </div>
+</div>

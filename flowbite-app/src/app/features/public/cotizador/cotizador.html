@@ -1,0 +1,192 @@
+<section class="min-h-screen bg-[#F3F3F3] px-4 py-12 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start">
+
+      <!-- TARJETA IZQUIERDA: FORMULARIO Y TABLA DE SISTEMA -->
+      <div class="rounded-3xl bg-white p-8 shadow-sm lg:col-span-8">
+
+        <!-- Encabezado y Selector de Sistema -->
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <h1 class="text-3xl font-extrabold text-black">Cotizar sistema</h1>
+          <div class="flex items-center gap-3">
+            <label class="text-xs font-medium text-gray-600 sm:text-sm">
+              Selecciona el sistema que deseas cotizar
+            </label>
+            <select [ngModel]="form().productoId" (ngModelChange)="actualizar('productoId', $event)" name="producto"
+              class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-700 shadow-sm focus:border-[#A845B3] focus:outline-none focus:ring-1 focus:ring-[#A845B3]">
+              <option value="" disabled selected>Elige uno</option>
+              @for (p of productos; track p.id) {
+              <option [value]="p.id">{{ p.nombre }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <!-- Tarjeta Informativa del Sistema Seleccionado -->
+        <div class="mt-8 flex items-center gap-6">
+          <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_1_906)">
+              <path d="M160 6.10352e-05H-0.000488281V160H160V6.10352e-05Z" fill="url(#paint0_linear_1_906)" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M76.5843 25.9177C87.2836 26.7307 95.7245 35.7141 95.7245 46.6613C95.7245 52.0456 93.6825 56.9546 90.3342 60.6505C88.441 62.7402 86.1302 64.4418 83.5348 65.6219C82.596 65.9102 81.6752 66.2524 80.7758 66.645C70.8549 70.9757 63.4663 81.4756 61.9735 94.1821C61.7914 95.1474 61.6962 96.1435 61.6962 97.1619C61.6962 97.3913 61.7012 97.6198 61.7108 97.8472C62.0686 106.34 69.0501 113.125 77.5979 113.125C81.9811 113.125 85.9528 111.341 88.8303 108.457C91.7143 105.567 93.4995 101.572 93.4995 97.1619C93.4995 93.4951 92.2653 90.1153 90.1915 87.4188C89.8856 86.8437 89.4523 86.3471 88.9293 85.9671C88.23 85.4585 87.3705 85.1588 86.4419 85.1588C84.0975 85.1588 82.1944 87.0693 82.1944 89.4227C82.1944 90.3374 82.4819 91.1853 82.971 91.8799C83.1388 92.1184 83.3306 92.3387 83.5427 92.5376C84.3619 93.6202 84.8487 94.9699 84.8487 96.433C84.8487 99.9906 81.9714 102.879 78.4273 102.879C76.5157 102.879 74.798 102.039 73.6212 100.706C73.2801 100.235 72.9602 99.7486 72.6628 99.2467C72.6398 99.2077 72.617 99.1688 72.5942 99.1298C72.5478 99.0504 72.5023 98.9707 72.4571 98.8904C70.9217 96.1637 70.045 93.0143 70.045 89.6612C70.045 87.0962 70.5581 84.6505 71.4864 82.4222C74.3126 75.6378 80.9897 70.8656 88.7682 70.8656C97.3872 70.8656 104.654 76.7244 106.828 84.6877C107.182 86.6084 107.399 88.5886 107.468 90.6137C107.483 91.0769 107.492 91.5427 107.492 92.0106C107.492 111.01 94.3993 126.436 78.2735 126.436C76.3482 126.436 74.4661 126.216 72.6444 125.796C59.2083 122.701 49.0557 108.742 49.0557 92.0106C49.0557 79.9246 54.3535 69.285 62.3596 63.1419C64.2945 61.6574 66.3876 60.4354 68.6024 59.519C68.8426 59.4291 69.0808 59.3347 69.3166 59.236C76.8093 56.1012 82.0818 48.6758 82.0818 40.024C82.0818 34.5826 79.9962 29.6264 76.5843 25.9177Z"
+                fill="#F0F6F7" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M104.118 85.0261C104.118 85.0261 107.581 83.1228 111.098 84.4193C114.614 85.7154 119.066 90.8458 118.131 94.1558C117.197 97.4658 105.217 94.487 104.118 90.791C103.019 87.0949 104.118 85.0261 104.118 85.0261Z"
+                fill="#F0F6F7" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M55.8813 75.1175C55.8813 75.1175 52.4188 77.0208 48.9018 75.7243C45.3851 74.4282 40.9337 69.2978 41.8681 65.9878C42.8021 62.6778 54.7821 65.6565 55.8813 69.3526C56.9801 73.0487 55.8813 75.1175 55.8813 75.1175Z"
+                fill="#F0F6F7" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M56.1538 110.036C56.1538 110.036 57.1145 113.88 54.9772 116.969C52.8403 120.058 46.7717 123.087 43.8171 121.344C40.8623 119.601 46.757 108.716 50.5971 108.581C54.437 108.447 56.1538 110.036 56.1538 110.036Z"
+                fill="#F0F6F7" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M92.1616 119.782C92.1616 119.782 96.0172 118.932 99.0299 121.168C102.042 123.403 104.879 129.583 103.056 132.496C101.233 135.409 90.5693 129.172 90.5485 125.315C90.5282 121.458 92.1616 119.782 92.1616 119.782Z"
+                fill="#F0F6F7" />
+            </g>
+            <defs>
+              <linearGradient id="paint0_linear_1_906" x1="-0.00036258" y1="80.0001" x2="160" y2="80.0001"
+                gradientUnits="userSpaceOnUse">
+                <stop stop-color="#39B1A1" />
+                <stop offset="0.48" stop-color="#2A9C9A" />
+                <stop offset="1" stop-color="#006386" />
+              </linearGradient>
+              <clipPath id="clip0_1_906">
+                <rect width="160" height="160" rx="48" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+
+          <div>
+            <h2 class="text-xl font-bold text-black">
+              {{ productoSeleccionado()?.nombre || 'Nombre del sistema' }}
+            </h2>
+            <p class="mt-1 text-sm text-gray-500">
+              {{ productoSeleccionado()?.resumen || 'Descripción' }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Fila de Selección de Sensores / Cantidad -->
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-semibold text-gray-800">Sensor</span>
+            <select
+              class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-700 shadow-sm focus:border-[#A845B3] focus:outline-none focus:ring-1 focus:ring-[#A845B3]">
+              <option value="" disabled selected>Elige uno</option>
+              @for (p of productos; track p.id) {
+              <option [value]="p.id">{{ p.nombre }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-semibold text-gray-800">Cantidad</span>
+            <input type="number" min="1" [ngModel]="form().cantidad" (ngModelChange)="actualizar('cantidad', $event)"
+              name="cantidad"
+              class="w-20 rounded-lg border border-gray-200 px-3 py-1.5 text-center text-sm focus:border-[#A845B3] focus:outline-none focus:ring-1 focus:ring-[#A845B3]" />
+          </div>
+
+          <button type="button" (click)="generarCotizacion()"
+            class="rounded-xl bg-[#A845B3] px-6 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#9B5CA2]">
+            Agregar
+          </button>
+        </div>
+
+        <!-- Tabla Desglosada -->
+        <div class="mt-8 overflow-hidden rounded-xl border border-gray-200">
+          <table class="w-full text-left text-sm text-gray-600">
+            <thead class="bg-gray-50 text-xs font-semibold text-gray-500 border-b border-gray-200">
+              <tr>
+                <th scope="col" class="px-4 py-3">Nombre <span class="inline-block text-xs">↓</span></th>
+                <th scope="col" class="px-4 py-3">Cantidad <span class="inline-block text-xs">↓</span></th>
+                <th scope="col" class="px-4 py-3">Costo <span class="inline-block text-xs">↓</span></th>
+                <th scope="col" class="px-4 py-3 text-right">Acciones <span class="inline-block text-xs">↓</span></th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 bg-white">
+              @if (productoSeleccionado()) {
+              <tr>
+                <td class="px-4 py-3 font-medium text-gray-900">{{ productoSeleccionado()?.nombre }}</td>
+                <td class="px-4 py-3">{{ form().cantidad }}</td>
+                <td class="px-4 py-3">${{ desglose().subtotalEquipo | number:'1.2-2' }}</td>
+                <td class="px-4 py-3 text-right">
+                  <div class="flex justify-end gap-2 text-gray-700">
+                    <button type="button" class="hover:text-[#A845B3]" title="Editar">
+                      <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                      </svg>
+                    </button>
+                    <button type="button" class="hover:text-red-600" title="Eliminar">
+                      <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              } @else {
+              <!-- Muestra filas vacías como en la maqueta si aún no hay items -->
+              @for (i of [1, 2, 3]; track i) {
+              <tr>
+                <td class="px-4 py-3">--</td>
+                <td class="px-4 py-3">--</td>
+                <td class="px-4 py-3">--</td>
+                <td class="px-4 py-3 text-right">
+                  <div class="flex justify-end gap-2 text-gray-700">
+                    <button type="button" class="hover:text-[#A845B3]">
+                      <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                      </svg>
+                    </button>
+                    <button type="button" class="hover:text-red-600">
+                      <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              }
+              }
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- TARJETA DERECHA: RESUMEN DE COTIZACIÓN -->
+      <div class="rounded-3xl bg-white p-8 shadow-sm lg:col-span-4">
+        <h2 class="text-2xl font-extrabold text-black">Resumen</h2>
+
+        <dl class="mt-8 space-y-6 text-sm font-medium text-gray-700">
+          <div class="flex items-center justify-between">
+            <dt>Sensores totales</dt>
+            <dd class="text-base font-bold text-black">{{ form().cantidad || 0 }}</dd>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <dt>Subtotal</dt>
+            <dd class="text-base font-bold text-black">${{ (desglose().subtotalEquipo || 0) | number:'1.2-2' }}</dd>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <dt>IVA</dt>
+            <dd class="text-base font-bold text-black">${{ ((desglose().subtotalEquipo || 0) * 0.16) | number:'1.2-2' }}
+            </dd>
+          </div>
+        </dl>
+
+        <!-- Caja contenedora del Total -->
+        <div class="mt-8 flex items-center justify-between rounded-2xl border-2 border-[#6D2375] px-6 py-3">
+          <span class="text-lg font-bold text-black">Total</span>
+          <span class="text-xl font-extrabold text-black">${{ (desglose().total || 0) | number:'1.2-2' }}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

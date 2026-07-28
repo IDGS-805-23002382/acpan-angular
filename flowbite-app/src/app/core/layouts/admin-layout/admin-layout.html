@@ -1,0 +1,78 @@
+<div class="flex min-h-screen bg-gray-50">
+  <aside class="hidden w-72 shrink-0 border-r border-gray-100 bg-white lg:block">
+    <div class="flex h-16 items-center gap-2 border-b border-gray-100 px-6">
+      <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-600 text-white font-bold text-sm">A</span>
+      <span class="font-extrabold text-gray-900">Panel Admin</span>
+    </div>
+    <nav class="space-y-1 px-3 py-6 text-sm">
+      <a routerLink="/admin" routerLinkActive="bg-primary-50 text-primary-700" [routerLinkActiveOptions]="{ exact: true }"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+        Dashboard
+      </a>
+
+      <p class="px-3 pt-4 pb-1 text-xs font-semibold uppercase tracking-wide text-gray-400">Gestión comercial</p>
+      <a routerLink="/admin/usuarios" routerLinkActive="bg-primary-50 text-primary-700"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+        Usuarios
+      </a>
+      <a routerLink="/admin/comentarios" routerLinkActive="bg-primary-50 text-primary-700"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+        Comentarios
+      </a>
+
+      <p class="px-3 pt-4 pb-1 text-xs font-semibold uppercase tracking-wide text-gray-400">Cadena de suministro</p>
+      <a routerLink="/admin/proveedores" routerLinkActive="bg-primary-50 text-primary-700"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+        Proveedores
+      </a>
+      <a routerLink="/admin/compras" routerLinkActive="bg-primary-50 text-primary-700"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+        Compras a proveedores
+      </a>
+      <a routerLink="/admin/materia-prima" routerLinkActive="bg-primary-50 text-primary-700"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+        Materia prima
+      </a>
+      <a routerLink="/admin/productos" routerLinkActive="bg-primary-50 text-primary-700"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+        Productos y receta
+      </a>
+    </nav>
+    <div class="px-3">
+      <a routerLink="/" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50">
+        ← Salir al sitio público
+      </a>
+    </div>
+  </aside>
+
+  <div class="flex-1">
+    <header class="flex h-16 items-center justify-between border-b border-gray-100 bg-white px-6">
+      <button (click)="toggleMenu()" class="text-gray-500 lg:hidden" aria-label="Menú">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+      <span class="font-semibold text-gray-900 lg:hidden">Panel Admin</span>
+      <div class="ml-auto flex items-center gap-3">
+        <span class="hidden text-sm text-gray-500 sm:block">María Delgado</span>
+        <span class="flex h-9 w-9 items-center justify-center rounded-full bg-primary-100 text-sm font-bold text-primary-700">MD</span>
+      </div>
+    </header>
+
+    @if (menuMovilAbierto()) {
+      <nav class="space-y-1 border-b border-gray-100 bg-white px-3 py-4 text-sm lg:hidden">
+        <a routerLink="/admin" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Dashboard</a>
+        <a routerLink="/admin/usuarios" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Usuarios</a>
+        <a routerLink="/admin/comentarios" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Comentarios</a>
+        <a routerLink="/admin/proveedores" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Proveedores</a>
+        <a routerLink="/admin/compras" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Compras</a>
+        <a routerLink="/admin/materia-prima" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Materia prima</a>
+        <a routerLink="/admin/productos" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Productos</a>
+      </nav>
+    }
+
+    <main class="p-6 lg:p-10">
+      <router-outlet />
+    </main>
+  </div>
+</div>

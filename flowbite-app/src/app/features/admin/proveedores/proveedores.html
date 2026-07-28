@@ -1,0 +1,99 @@
+<div>
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-extrabold text-gray-900">Proveedores</h1>
+      <p class="mt-1 text-sm text-gray-500">Catálogo de proveedores de materia prima y componentes.</p>
+    </div>
+    <button type="button" (click)="nuevo()"
+            class="rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-700">
+      + Nuevo proveedor
+    </button>
+  </div>
+
+  <div class="mt-8 overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-gray-900/5">
+    <table class="min-w-full divide-y divide-gray-100 text-sm">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Proveedor</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Contacto</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Correo</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Teléfono</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Estatus</th>
+          <th class="px-6 py-3 text-right font-semibold text-gray-500">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        @for (p of proveedores(); track p.id) {
+          <tr>
+            <td class="px-6 py-4 font-medium text-gray-900">{{ p.nombre }}</td>
+            <td class="px-6 py-4 text-gray-600">{{ p.contacto }}</td>
+            <td class="px-6 py-4 text-gray-600">{{ p.correo }}</td>
+            <td class="px-6 py-4 text-gray-600">{{ p.telefono }}</td>
+            <td class="px-6 py-4">
+              <span class="rounded-full px-2.5 py-1 text-xs font-semibold"
+                    [class]="p.estatus === 'activo' ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'">
+                {{ p.estatus }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-right">
+              <button type="button" (click)="editar(p)" class="text-sm font-semibold text-primary-600 hover:text-primary-700">
+                Editar
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@if (modalAbierto() && proveedorEnEdicion(); as p) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+      <h2 class="text-lg font-bold text-gray-900">{{ p.id ? 'Editar proveedor' : 'Nuevo proveedor' }}</h2>
+
+      <div class="mt-4 space-y-4">
+        <div>
+          <label class="text-sm font-semibold text-gray-700">Nombre / Razón social</label>
+          <input type="text" [ngModel]="p.nombre" (ngModelChange)="p.nombre = $event" name="nombre"
+                 class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500" />
+        </div>
+        <div>
+          <label class="text-sm font-semibold text-gray-700">Persona de contacto</label>
+          <input type="text" [ngModel]="p.contacto" (ngModelChange)="p.contacto = $event" name="contacto"
+                 class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500" />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm font-semibold text-gray-700">Correo</label>
+            <input type="email" [ngModel]="p.correo" (ngModelChange)="p.correo = $event" name="correo"
+                   class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500" />
+          </div>
+          <div>
+            <label class="text-sm font-semibold text-gray-700">Teléfono</label>
+            <input type="tel" [ngModel]="p.telefono" (ngModelChange)="p.telefono = $event" name="telefono"
+                   class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500" />
+          </div>
+        </div>
+        <div>
+          <label class="text-sm font-semibold text-gray-700">Estatus</label>
+          <select [ngModel]="p.estatus" (ngModelChange)="p.estatus = $event" name="estatus"
+                  class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500">
+            <option value="activo">Activo</option>
+            <option value="inactivo">Inactivo</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-6 flex justify-end gap-3">
+        <button type="button" (click)="cerrarModal()" class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100">
+          Cancelar
+        </button>
+        <button type="button" (click)="guardar()"
+                class="rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-700">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+}

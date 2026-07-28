@@ -1,0 +1,65 @@
+<div>
+  <h1 class="text-2xl font-extrabold text-gray-900">Mis compras</h1>
+  <p class="mt-1 text-sm text-gray-500">Historial de compras y opiniones sobre tus productos.</p>
+
+  <div class="mt-8 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-900/5">
+    <table class="min-w-full divide-y divide-gray-100 text-sm">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Producto</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Fecha</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Total</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Opinión</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        @for (compra of compras(); track compra.id) {
+          <tr>
+            <td class="px-6 py-4 font-medium text-gray-900">{{ nombreProducto(compra.productoId) }}</td>
+            <td class="px-6 py-4 text-gray-600">{{ compra.fecha }}</td>
+            <td class="px-6 py-4 text-gray-600">${{ compra.total | number }}</td>
+            <td class="px-6 py-4">
+              @if (compra.resenaDejada) {
+                <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Reseña enviada</span>
+              } @else {
+                <button type="button" (click)="abrirResena(compra)"
+                        class="rounded-lg bg-primary-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-primary-700">
+                  Dejar opinión
+                </button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@if (compraEnResena(); as compra) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+      <h2 class="text-lg font-bold text-gray-900">Opinar sobre {{ nombreProducto(compra.productoId) }}</h2>
+
+      <div class="mt-4 flex gap-1">
+        @for (n of estrellas(); track n) {
+          <button type="button" (click)="calificacion.set(n)" class="text-2xl"
+                  [class]="n <= calificacion() ? 'text-amber-400' : 'text-gray-200'">★</button>
+        }
+      </div>
+
+      <textarea rows="4" [ngModel]="textoResena()" (ngModelChange)="textoResena.set($event)" name="reseña"
+                placeholder="Cuéntanos tu experiencia con el producto..."
+                class="mt-4 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500"></textarea>
+
+      <div class="mt-6 flex justify-end gap-3">
+        <button type="button" (click)="cerrarModal()" class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100">
+          Cancelar
+        </button>
+        <button type="button" (click)="enviarResena()"
+                class="rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-700">
+          Enviar opinión
+        </button>
+      </div>
+    </div>
+  </div>
+}

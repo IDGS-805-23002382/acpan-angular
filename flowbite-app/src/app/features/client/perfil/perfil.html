@@ -1,0 +1,52 @@
+<div class="max-w-3xl">
+  <h1 class="text-2xl font-extrabold text-gray-900">Mi perfil</h1>
+  <p class="mt-1 text-sm text-gray-500">Actualiza tus datos de contacto y contraseña.</p>
+
+  <form class="mt-8 space-y-8" (ngSubmit)="guardarDatos()">
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-900/5">
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Datos de contacto</h2>
+      <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div>
+          <label class="text-sm font-semibold text-gray-700">Nombre / Empresa</label>
+          <input type="text" [ngModel]="nombre()" (ngModelChange)="nombre.set($event)" name="nombre"
+                 class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500" />
+        </div>
+        <div>
+          <label class="text-sm font-semibold text-gray-700">Correo electrónico</label>
+          <input type="email" [ngModel]="correo()" (ngModelChange)="correo.set($event)" name="correo"
+                 class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500" />
+        </div>
+        <div>
+          <label class="text-sm font-semibold text-gray-700">Teléfono</label>
+          <input type="tel" [ngModel]="telefono()" (ngModelChange)="telefono.set($event)" name="telefono"
+                 class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500" />
+        </div>
+      </div>
+    </div>
+
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-900/5">
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Cambiar contraseña</h2>
+      <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div>
+          <label class="text-sm font-semibold text-gray-700">Contraseña actual</label>
+          <input type="password" [ngModel]="passwordActual()" (ngModelChange)="passwordActual.set($event)" name="passwordActual"
+                 class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500" />
+        </div>
+        <div>
+          <label class="text-sm font-semibold text-gray-700">Nueva contraseña</label>
+          <input type="password" [ngModel]="passwordNueva()" (ngModelChange)="passwordNueva.set($event)" name="passwordNueva"
+                 class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500" />
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <button type="submit" class="rounded-lg bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary-700">
+        Guardar cambios
+      </button>
+      @if (guardado()) {
+        <span class="text-sm font-medium text-emerald-600">Cambios guardados correctamente.</span>
+      }
+    </div>
+  </form>
+</div>

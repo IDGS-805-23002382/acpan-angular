@@ -1,0 +1,96 @@
+<div>
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-extrabold text-gray-900">Usuarios</h1>
+      <p class="mt-1 text-sm text-gray-500">Administradores y clientes registrados en la plataforma.</p>
+    </div>
+    <button type="button" (click)="nuevoUsuario()"
+            class="rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-700">
+      + Registrar usuario
+    </button>
+  </div>
+
+  <div class="mt-8 overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-gray-900/5">
+    <table class="min-w-full divide-y divide-gray-100 text-sm">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Nombre</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Correo</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Rol</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Registro</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Estatus</th>
+          <th class="px-6 py-3 text-right font-semibold text-gray-500">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        @for (u of usuarios(); track u.id) {
+          <tr>
+            <td class="px-6 py-4 font-medium text-gray-900">{{ u.nombre }}</td>
+            <td class="px-6 py-4 text-gray-600">{{ u.correo }}</td>
+            <td class="px-6 py-4">
+              <span class="rounded-full px-2.5 py-1 text-xs font-semibold"
+                    [class]="u.rol === 'admin' ? 'bg-primary-50 text-primary-700' : 'bg-gray-100 text-gray-700'">
+                {{ u.rol }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-gray-600">{{ u.fechaRegistro }}</td>
+            <td class="px-6 py-4">
+              <button type="button" (click)="toggleEstatus(u)"
+                      class="rounded-full px-2.5 py-1 text-xs font-semibold"
+                      [class]="u.estatus === 'activo' ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'">
+                {{ u.estatus }}
+              </button>
+            </td>
+            <td class="px-6 py-4 text-right">
+              <button type="button" (click)="editarUsuario(u)" class="text-sm font-semibold text-primary-600 hover:text-primary-700">
+                Editar
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@if (modalAbierto() && usuarioEnEdicion(); as u) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+      <h2 class="text-lg font-bold text-gray-900">{{ u.id ? 'Editar usuario' : 'Registrar nuevo usuario' }}</h2>
+
+      <div class="mt-4 space-y-4">
+        <div>
+          <label class="text-sm font-semibold text-gray-700">Nombre</label>
+          <input type="text" [ngModel]="u.nombre" (ngModelChange)="u.nombre = $event" name="nombre"
+                 class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500" />
+        </div>
+        <div>
+          <label class="text-sm font-semibold text-gray-700">Correo electrónico</label>
+          <input type="email" [ngModel]="u.correo" (ngModelChange)="u.correo = $event" name="correo"
+                 class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500" />
+        </div>
+        <div>
+          <label class="text-sm font-semibold text-gray-700">Rol</label>
+          <select [ngModel]="u.rol" (ngModelChange)="u.rol = $event" name="rol"
+                  class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-primary-500">
+            <option value="cliente">Cliente</option>
+            <option value="admin">Administrador</option>
+          </select>
+        </div>
+        <p class="text-xs text-gray-500">
+          Al guardar, el sistema generará una contraseña temporal y la enviará al correo del cliente.
+        </p>
+      </div>
+
+      <div class="mt-6 flex justify-end gap-3">
+        <button type="button" (click)="cerrarModal()" class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100">
+          Cancelar
+        </button>
+        <button type="button" (click)="guardarUsuario()"
+                class="rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-700">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+}

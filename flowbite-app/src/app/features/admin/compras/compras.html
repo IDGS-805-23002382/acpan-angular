@@ -1,0 +1,93 @@
+<div>
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-extrabold text-gray-900">Compras a proveedores</h1>
+      <p class="mt-1 text-sm text-gray-500">Órdenes de compra de materia prima y componentes.</p>
+    </div>
+    <button type="button"
+            class="rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-700">
+      + Nueva compra
+    </button>
+  </div>
+
+  <div class="mt-8 overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-gray-900/5">
+    <table class="min-w-full divide-y divide-gray-100 text-sm">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Folio</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Proveedor</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Fecha</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Total</th>
+          <th class="px-6 py-3 text-left font-semibold text-gray-500">Estatus</th>
+          <th class="px-6 py-3 text-right font-semibold text-gray-500">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        @for (c of compras(); track c.id) {
+          <tr>
+            <td class="px-6 py-4 font-medium text-gray-900">#{{ c.id }}</td>
+            <td class="px-6 py-4 text-gray-600">{{ nombreProveedor(c.proveedorId) }}</td>
+            <td class="px-6 py-4 text-gray-600">{{ c.fecha }}</td>
+            <td class="px-6 py-4 text-gray-600">${{ c.total | number }}</td>
+            <td class="px-6 py-4">
+              <span class="rounded-full px-2.5 py-1 text-xs font-semibold"
+                    [class]="c.estatus === 'recibida' ? 'bg-emerald-50 text-emerald-700' : c.estatus === 'pendiente' ? 'bg-amber-50 text-amber-700' : 'bg-red-50 text-red-700'">
+                {{ c.estatus }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-right">
+              <button type="button" (click)="verDetalle(c)" class="text-sm font-semibold text-primary-600 hover:text-primary-700">
+                Ver detalle
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@if (detalleAbierto(); as c) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    <div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-bold text-gray-900">Compra #{{ c.id }}</h2>
+        <span class="rounded-full px-2.5 py-1 text-xs font-semibold"
+              [class]="c.estatus === 'recibida' ? 'bg-emerald-50 text-emerald-700' : c.estatus === 'pendiente' ? 'bg-amber-50 text-amber-700' : 'bg-red-50 text-red-700'">
+          {{ c.estatus }}
+        </span>
+      </div>
+      <p class="mt-1 text-sm text-gray-500">{{ nombreProveedor(c.proveedorId) }} · {{ c.fecha }}</p>
+
+      <ul class="mt-4 divide-y divide-gray-100 rounded-lg border border-gray-100">
+        @for (item of c.items; track item.insumoId) {
+          <li class="flex items-center justify-between px-4 py-2 text-sm">
+            <span class="text-gray-700">{{ nombreInsumo(item.insumoId) }} × {{ item.cantidad }}</span>
+            <span class="font-medium text-gray-900">${{ item.cantidad * item.costoUnitario | number }}</span>
+          </li>
+        }
+      </ul>
+
+      <div class="mt-4 flex items-center justify-between border-t border-gray-100 pt-4">
+        <span class="text-sm text-gray-500">Total</span>
+        <span class="text-lg font-extrabold text-gray-900">${{ c.total | number }}</span>
+      </div>
+
+      <div class="mt-6 flex flex-wrap justify-end gap-2">
+        @if (c.estatus === 'pendiente') {
+          <button type="button" (click)="cambiarEstatus(c, 'cancelada')"
+                  class="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-50">
+            Cancelar
+          </button>
+          <button type="button" (click)="cambiarEstatus(c, 'recibida')"
+                  class="rounded-lg bg-primary-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-primary-700">
+            Marcar como recibida
+          </button>
+        }
+        <button type="button" (click)="cerrarDetalle()" class="rounded-lg px-3 py-1.5 text-xs font-semibold text-gray-600 hover:bg-gray-100">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,101 @@
+<!-- SECCIÓN DE CONTACTO REDISEÑADA -->
+<section class="bg-[#ECE8E1] py-24 px-4 sm:px-6 lg:px-8 border-t border-[#2A114B]/10">
+  <div class="mx-auto max-w-7xl">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      
+      <!-- Columna Izquierda: Información de contacto -->
+      <div class="lg:col-span-5 space-y-8">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="h-2 w-2 rounded-full bg-[#9B51E0]"></span>
+            <span class="text-xs font-bold tracking-widest text-[#2A114B] uppercase">Contacto Directo</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#2A114B]">
+            Hablemos de tu proyecto
+          </h2>
+          <p class="mt-3 text-sm text-gray-600 leading-relaxed">
+            Escríbenos y un especialista te ayudará a definir la mejor solución IoT para tu operación industrial o agrícola.
+          </p>
+        </div>
+
+        <!-- Tarjetas de Info Rápidas -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-white p-5 rounded-2xl shadow-sm border border-[#2A114B]/5">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-[#9B51E0] block mb-1">Ubicación</span>
+            <p class="text-sm font-semibold text-[#2A114B]">León, Gto., México</p>
+          </div>
+          <div class="bg-white p-5 rounded-2xl shadow-sm border border-[#2A114B]/5">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-[#9B51E0] block mb-1">Correo Electrónico</span>
+            <p class="text-sm font-semibold text-[#2A114B]">ventas&#64;acpaniot.mx</p>
+          </div>
+          <div class="bg-white p-5 rounded-2xl shadow-sm border border-[#2A114B]/5">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-[#9B51E0] block mb-1">Teléfono</span>
+            <p class="text-sm font-semibold text-[#2A114B]">+52 477 000 0000</p>
+          </div>
+          <div class="bg-white p-5 rounded-2xl shadow-sm border border-[#2A114B]/5">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-[#9B51E0] block mb-1">Horario</span>
+            <p class="text-sm font-semibold text-[#2A114B]">Lun - Vie, 9:00 - 18:00</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Formulario estilo Tarjeta con pestañas de interés -->
+      <div class="lg:col-span-7">
+        <form class="rounded-3xl bg-white p-8 sm:p-10 shadow-xl border border-[#2A114B]/10 space-y-6" (ngSubmit)="enviar()">
+          
+          <div>
+            <h3 class="text-2xl font-bold text-[#2A114B]">Contáctanos</h3>
+            <p class="mt-1 text-xs font-medium text-gray-500">Selecciona el área de tu interés</p>
+            
+            <!-- Botones de selección rápida (Inspirado en tu imagen) -->
+            <div class="mt-4 grid grid-cols-2 gap-3">
+              <button type="button" class="rounded-xl px-4 py-3 text-xs font-bold transition-all border text-center bg-[#2A114B] text-white border-[#2A114B] shadow-sm">
+                Sistema acpan
+              </button>
+              <button type="button" class="rounded-xl px-4 py-3 text-xs font-bold transition-all border text-center bg-gray-50 text-gray-400 border-gray-200 hover:border-[#9B51E0] hover:text-[#2A114B]">
+                Futuros sistemas
+              </button>
+            </div>
+          </div>
+
+          <!-- Campos del Formulario -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#2A114B] mb-1">Empresa / Nombre de encargado</label>
+              <input required type="text" [ngModel]="nombre()" (ngModelChange)="nombre.set($event)" name="nombre" placeholder="Ej. Juan Pérez / AgroIndustria S.A."
+                     class="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm text-[#2A114B] placeholder:text-gray-400 focus:bg-white focus:border-[#9B51E0] focus:ring-2 focus:ring-[#9B51E0]/20 outline-none transition-all" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#2A114B] mb-1">Correo electrónico</label>
+              <input required type="email" [ngModel]="correo()" (ngModelChange)="correo.set($event)" name="correo" placeholder="correo@empresa.com"
+                     class="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm text-[#2A114B] placeholder:text-gray-400 focus:bg-white focus:border-[#9B51E0] focus:ring-2 focus:ring-[#9B51E0]/20 outline-none transition-all" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#2A114B] mb-1">Mensaje o requerimiento</label>
+              <textarea required rows="4" [ngModel]="mensaje()" (ngModelChange)="mensaje.set($event)" name="mensaje" placeholder="Cuéntanos sobre tu proyecto IoT..."
+                        class="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm text-[#2A114B] placeholder:text-gray-400 focus:bg-white focus:border-[#9B51E0] focus:ring-2 focus:ring-[#9B51E0]/20 outline-none transition-all resize-none"></textarea>
+            </div>
+          </div>
+
+          <!-- Botón de Envío y Mensaje de Éxito -->
+          <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#9B51E0] px-8 py-3.5 text-xs font-bold tracking-widest text-white uppercase shadow-md transition-all hover:bg-[#863ec9] hover:shadow-lg">
+              <svg class="w-4 h-4 fill-current rotate-45" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+              Enviar mensaje
+            </button>
+
+            @if (enviado()) {
+              <p class="text-xs font-bold text-emerald-600 animate-fade-in">¡Gracias! Te responderemos a la brevedad.</p>
+            }
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</section>

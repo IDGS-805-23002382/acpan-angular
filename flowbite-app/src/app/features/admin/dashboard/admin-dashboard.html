@@ -1,0 +1,60 @@
+<div>
+  <h1 class="text-2xl font-extrabold text-gray-900">Dashboard</h1>
+  <p class="mt-1 text-sm text-gray-500">Resumen general de la operación.</p>
+
+  <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-900/5">
+      <p class="text-sm text-gray-500">Usuarios totales</p>
+      <p class="mt-2 text-3xl font-extrabold text-gray-900">{{ totalUsuarios }}</p>
+    </div>
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-900/5">
+      <p class="text-sm text-gray-500">Clientes activos</p>
+      <p class="mt-2 text-3xl font-extrabold text-gray-900">{{ totalClientesActivos }}</p>
+    </div>
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-900/5">
+      <p class="text-sm text-gray-500">Comentarios por revisar</p>
+      <p class="mt-2 text-3xl font-extrabold text-amber-600">{{ comentariosPendientes }}</p>
+    </div>
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-900/5">
+      <p class="text-sm text-gray-500">Compras pendientes</p>
+      <p class="mt-2 text-3xl font-extrabold text-primary-600">{{ comprasPendientes }}</p>
+    </div>
+  </div>
+
+  <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-900/5">
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Últimas compras a proveedores</h2>
+      <ul class="mt-4 divide-y divide-gray-100">
+        @for (compra of ultimasCompras; track compra.id) {
+          <li class="flex items-center justify-between py-3 text-sm">
+            <div>
+              <p class="font-medium text-gray-900">{{ nombreProveedor(compra.proveedorId) }}</p>
+              <p class="text-gray-500">{{ compra.fecha }}</p>
+            </div>
+            <div class="text-right">
+              <p class="font-semibold text-gray-900">${{ compra.total | number }}</p>
+              <span class="text-xs font-semibold uppercase"
+                    [class]="compra.estatus === 'recibida' ? 'text-emerald-600' : compra.estatus === 'pendiente' ? 'text-amber-600' : 'text-red-600'">
+                {{ compra.estatus }}
+              </span>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-900/5">
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Materia prima con stock bajo</h2>
+      <ul class="mt-4 divide-y divide-gray-100">
+        @for (insumo of insumosBajoStock; track insumo.id) {
+          <li class="flex items-center justify-between py-3 text-sm">
+            <p class="font-medium text-gray-900">{{ insumo.nombre }}</p>
+            <p class="font-semibold text-red-600">{{ insumo.stock }} / mín. {{ insumo.stockMinimo }}</p>
+          </li>
+        } @empty {
+          <p class="py-3 text-sm text-gray-500">Todos los insumos tienen stock suficiente.</p>
+        }
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+<!-- HERO / SECCIÓN SUPERIOR TURQUESA -->
+<section class="bg-[#98D8D0] text-gray-900 rounded-b-[2.5rem] px-6 py-12 md:py-16">
+  <div class="mx-auto flex max-w-6xl flex-col items-center gap-8 md:flex-row md:gap-16">
+    
+    <!-- Tarjeta del Ícono / Imagen (Izquierda) -->
+    <div class="flex shrink-0 items-center justify-center rounded-[2.5rem] bg-gradient-to-br from-[#12A098] to-[#0A6B68] p-8 shadow-inner w-64 h-64 md:w-72 md:h-72">
+      <!-- Ícono estilo Tortuga (puedes reemplazar por un <img>) -->
+      <svg width="155" height="219" viewBox="0 0 155 219" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M70.5553 0C92.2213 1.64632 109.314 19.8377 109.314 42.0059C109.314 52.909 105.179 62.8498 98.3988 70.3339C94.5651 74.5657 89.8858 78.0114 84.6302 80.4011C82.729 80.9849 80.8644 81.6778 79.043 82.4728C58.9532 91.2425 43.9913 112.505 40.9684 138.235C40.5997 140.19 40.407 142.207 40.407 144.27C40.407 144.734 40.417 145.197 40.4365 145.657C41.1611 162.855 55.2986 176.595 72.6078 176.595C81.4838 176.595 89.5264 172.982 95.3535 167.142C101.194 161.289 104.809 153.2 104.809 144.27C104.809 136.844 102.309 130 98.1098 124.54C97.4905 123.375 96.6129 122.37 95.5539 121.6C94.1379 120.57 92.3974 119.963 90.5169 119.963C85.7696 119.963 81.9158 123.832 81.9158 128.598C81.9158 130.45 82.4979 132.167 83.4884 133.573C83.8282 134.056 84.2165 134.503 84.6461 134.905C86.305 137.098 87.2908 139.831 87.2908 142.793C87.2908 149.998 81.4643 155.847 74.2874 155.847C70.4164 155.847 66.938 154.145 64.5551 151.446C63.8643 150.494 63.2165 149.508 62.6143 148.491C62.5676 148.412 62.5215 148.333 62.4754 148.255C62.3815 148.094 62.2893 147.932 62.1977 147.77C59.0885 142.248 57.3132 135.871 57.3132 129.081C57.3132 123.887 58.3522 118.934 60.2321 114.422C65.9551 100.683 79.4762 91.0194 95.2277 91.0194C112.681 91.0194 127.396 102.884 131.799 119.009C132.515 122.899 132.955 126.909 133.094 131.009C133.126 131.947 133.143 132.891 133.143 133.838C133.143 172.313 106.631 203.549 73.9759 203.549C70.0772 203.549 66.266 203.103 62.5771 202.254C35.3689 195.987 14.8098 167.719 14.8098 133.838C14.8098 109.364 25.5379 87.8187 41.7503 75.3791C45.6685 72.373 49.907 69.8984 54.392 68.0427C54.8784 67.8605 55.3606 67.6695 55.8381 67.4696C71.011 61.1216 81.6877 46.0852 81.6877 28.5653C81.6877 17.5465 77.4645 7.5102 70.5553 0Z" fill="#F0F6F7"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M126.312 119.695C126.312 119.695 133.323 115.84 140.445 118.466C147.567 121.09 156.581 131.479 154.689 138.182C152.797 144.885 128.538 138.853 126.312 131.368C124.087 123.884 126.312 119.695 126.312 119.695Z" fill="#F0F6F7"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M28.6319 99.6295C28.6319 99.6295 21.6205 103.484 14.4984 100.858C7.37727 98.2337 -1.63699 87.8447 0.255262 81.142C2.14663 74.4393 26.406 80.4712 28.6319 87.9558C30.857 95.4403 28.6319 99.6295 28.6319 99.6295Z" fill="#F0F6F7"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M29.1837 170.34C29.1837 170.34 31.1293 178.123 26.8011 184.379C22.474 190.634 10.185 196.768 4.20187 193.238C-1.78151 189.709 10.1553 167.667 17.9314 167.394C25.7073 167.121 29.1837 170.34 29.1837 170.34Z" fill="#F0F6F7"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M102.099 190.076C102.099 190.076 109.907 188.354 116.007 192.882C122.108 197.409 127.852 209.921 124.16 215.821C120.47 221.72 98.8747 209.09 98.8327 201.279C98.7915 193.469 102.099 190.076 102.099 190.076Z" fill="#F0F6F7"/>
+</svg>
+
+    </div>
+
+    <!-- Título y Descripción (Derecha) -->
+    <div class="text-center md:text-left">
+      <h1 class="text-4xl font-extrabold tracking-tight text-black md:text-5xl">
+        {{ categoriaActiva() || 'Titulo' }}
+      </h1>
+      <p class="mt-4 max-w-xl text-sm leading-relaxed text-gray-700 md:text-base">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECCIÓN APLICACIONES / CATÁLOGO -->
+<section class="bg-[#F3F3F3] min-h-screen px-6 py-12 md:py-16">
+  <div class="mx-auto max-w-6xl">
+
+    <!-- Título Sección -->
+    <h2 class="text-3xl font-extrabold text-black mb-8">
+      Aplicaciones
+    </h2>
+
+    <!-- Filtro de Categorías (Opcional, manteniendo lógica Angular) -->
+    @if (categorias().length > 0) {
+      <div class="mb-8 flex flex-wrap gap-2">
+        @for (cat of categorias(); track cat) {
+          <button type="button" (click)="seleccionarCategoria(cat)"
+                  class="rounded-full px-5 py-1.5 text-sm font-bold transition"
+                  [class]="categoriaActiva() === cat
+                    ? 'bg-[#6D2375] text-white'
+                    : 'bg-white text-gray-700 hover:bg-gray-200'">
+            {{ cat }}
+          </button>
+        }
+      </div>
+    }
+
+    <!-- Grid de Productos / Tarjetas estilo Wireframe -->
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      @for (producto of productosFiltrados(); track producto.id) {
+        <div class="group overflow-hidden rounded-xl bg-white shadow-sm border border-gray-200 transition hover:shadow-md">
+          
+          <!-- Imagen del producto -->
+          <div class="relative h-48 w-full bg-gray-200 overflow-hidden">
+            @if (producto.imagen) {
+              <img [src]="producto.imagen" [alt]="producto.nombre" class="h-full w-full object-cover" />
+            } @else {
+              <!-- Fallback con la X estilo boceto de la imagen -->
+              <div class="flex h-full w-full items-center justify-center bg-gray-200 text-gray-400">
+                <svg class="h-full w-full stroke-gray-300" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <line x1="0" y1="0" x2="100" y2="100" stroke-width="1" />
+                  <line x1="100" y1="0" x2="0" y2="100" stroke-width="1" />
+                </svg>
+              </div>
+            }
+          </div>
+
+          <!-- Contenido simplificado -->
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 text-base">{{ producto.nombre }}</h3>
+            <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{ producto.resumen }}</p>
+            
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-sm font-bold text-[#6D2375]">${{ producto.precioBase | number }}</span>
+              <a [routerLink]="[producto.slug]" class="text-xs font-bold text-gray-700 hover:text-[#6D2375]">
+                Ver más →
+              </a>
+            </div>
+          </div>
+
+        </div>
+      } @empty {
+        <!-- Tarjetas vacías de muestra estilo Wireframe si no hay datos -->
+        @for (i of [1, 2, 3, 4]; track i) {
+          <div class="rounded-xl border border-gray-300 bg-[#E5E5E5] p-2">
+            <div class="relative flex h-44 w-full items-center justify-center rounded-lg border border-gray-400 bg-[#D9D9D9]">
+              <svg class="h-full w-full stroke-gray-400" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <line x1="0" y1="0" x2="100" y2="100" stroke-width="1" />
+                <line x1="100" y1="0" x2="0" y2="100" stroke-width="1" />
+              </svg>
+            </div>
+          </div>
+        }
+      }
+    </div>
+
+  </div>
+</section>

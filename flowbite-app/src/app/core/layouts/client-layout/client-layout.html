@@ -1,0 +1,37 @@
+<div class="flex min-h-screen bg-gray-50">
+  <aside class="hidden w-64 shrink-0 border-r border-gray-100 bg-white lg:block">
+    <div class="flex h-16 items-center gap-2 border-b border-gray-100 px-6">
+      <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-600 text-white font-bold text-sm">A</span>
+      <span class="font-extrabold text-gray-900">Mi cuenta</span>
+    </div>
+    <nav class="space-y-1 px-3 py-6">
+      <a routerLink="/cliente/perfil" routerLinkActive="bg-primary-50 text-primary-700"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
+        Mi perfil
+      </a>
+      <a routerLink="/cliente/mis-productos" routerLinkActive="bg-primary-50 text-primary-700"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
+        Mis productos
+      </a>
+      <a routerLink="/cliente/mis-compras" routerLinkActive="bg-primary-50 text-primary-700"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
+        Mis compras
+      </a>
+    </nav>
+    <div class="px-3">
+      <a routerLink="/" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50">
+        ← Salir al sitio público
+      </a>
+    </div>
+  </aside>
+
+  <div class="flex-1">
+    <header class="flex h-16 items-center justify-between border-b border-gray-100 bg-white px-6 lg:hidden">
+      <span class="font-extrabold text-gray-900">Mi cuenta</span>
+      <a routerLink="/" class="text-sm text-gray-500">Salir</a>
+    </header>
+    <main class="p-6 lg:p-10">
+      <router-outlet />
+    </main>
+  </div>
+</div>
