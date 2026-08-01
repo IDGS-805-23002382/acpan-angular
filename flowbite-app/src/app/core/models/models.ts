@@ -13,7 +13,11 @@ export interface Producto {
   precioBase: number;
   destacado?: boolean;
   especificaciones: { label: string; valor: string }[];
-  documentos: { nombre: string; tipo: 'manual' | 'ficha' | 'video'; url: string }[];
+  documentos: {
+    nombre: string;
+    tipo: "manual" | "ficha" | "video";
+    url: string;
+  }[];
 }
 
 export interface Insumo {
@@ -37,7 +41,7 @@ export interface Proveedor {
   contacto: string;
   correo: string;
   telefono: string;
-  estatus: 'activo' | 'inactivo';
+  estatus: "activo" | "inactivo";
 }
 
 export interface Compra {
@@ -45,17 +49,17 @@ export interface Compra {
   proveedorId: number;
   fecha: string;
   total: number;
-  estatus: 'pendiente' | 'recibida' | 'cancelada';
+  estatus: "pendiente" | "recibida" | "cancelada";
   items: { insumoId: number; cantidad: number; costoUnitario: number }[];
 }
 
 export interface Usuario {
-  id: number;
-  nombre: string;
-  correo: string;
-  rol: 'admin' | 'cliente';
-  estatus: 'activo' | 'inactivo';
-  fechaRegistro: string;
+  id?: string;
+  nombreCompleto?: string;
+  email?: string;
+  fechaRegistro?: string;
+  roles?: string[];
+  estatus?: boolean;
 }
 
 export interface Comentario {

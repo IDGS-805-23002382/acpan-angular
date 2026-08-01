@@ -1,22 +1,77 @@
-import { Component, signal, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MockDataService } from '../../../core/data/mock-data.service';
-import { Usuario } from '../../../core/models/models';
+import { Component, signal, inject, OnInit } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Usuario } from "../../../core/models/models";
+import { AuthService } from "../../../services/auth.service";
+import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-usuarios',
+  selector: "app-usuarios",
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './usuarios.html',
+  templateUrl: "./usuarios.html",
 })
-export class UsuariosAdmin {
-  private data = inject(MockDataService);
-  usuarios = signal<Usuario[]>(this.data.usuarios);
+export class UsuariosAdmin implements OnInit {
+  private http = inject(HttpClient);
+  private authService = inject(AuthService);
+
+  private apiUrl = "https://localhost:7227/api/users";
+
+  usuarios = signal<Usuario[]>([]);
   modalAbierto = signal(false);
   usuarioEnEdicion = signal<Partial<Usuario> | null>(null);
 
+  usuarioActualId: string = "";
+
+  ngOnInit() {
+    this.cargarUsuarioActual();
+    this.cargarUsuarios();
+  }
+
+  cargarUsuarioActual() {
+    const token = this.authService.getToken();
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        this.usuarioActualId =
+          payload.sub ||
+          payload[
+            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+          ] ||
+          "";
+      } catch (e) {
+        console.error("No se pudo leer el token para obtener el ID actual", e);
+      }
+    }
+  }
+
+  private getAuthHeaders() {
+    const token = (this.authService.getToken() as string) || "";
+    return new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    });
+  }
+
+  cargarUsuarios() {
+    this.http
+      .get<Usuario[]>(this.apiUrl, { headers: this.getAuthHeaders() })
+      .subscribe({
+        next: (data) => {
+          this.usuarios.set(data);
+        },
+        error: (err) => {
+          console.error("Error al cargar los usuarios de la API", err);
+        },
+      });
+  }
+
   nuevoUsuario() {
-    this.usuarioEnEdicion.set({ nombre: '', correo: '', rol: 'cliente', estatus: 'activo' });
+    this.usuarioEnEdicion.set({
+      nombreCompleto: "",
+      email: "",
+      roles: ["Cliente"],
+    });
     this.modalAbierto.set(true);
   }
 
@@ -34,29 +89,136 @@ export class UsuariosAdmin {
     const editado = this.usuarioEnEdicion();
     if (!editado) return;
 
-    // POST/PUT /api/usuarios — el administrador registra al cliente y el
-    // backend le envía sus credenciales de acceso por correo electrónico.
-    this.usuarios.update((lista) => {
-      if (editado.id) {
-        return lista.map((u) => (u.id === editado.id ? ({ ...u, ...editado } as Usuario) : u));
-      }
-      const nuevo: Usuario = {
-        id: Math.max(0, ...lista.map((u) => u.id)) + 1,
-        nombre: editado.nombre ?? '',
-        correo: editado.correo ?? '',
-        rol: (editado.rol as 'admin' | 'cliente') ?? 'cliente',
-        estatus: (editado.estatus as 'activo' | 'inactivo') ?? 'activo',
-        fechaRegistro: new Date().toISOString().slice(0, 10),
-      };
-      return [nuevo, ...lista];
-    });
+    if (editado.id) {
+      const rolSeleccionado = Array.isArray(editado.roles)
+        ? editado.roles[0]
+        : editado.roles || "Cliente";
+      this.http
+        .post(
+          `${this.apiUrl}/${editado.id}/role`,
+          JSON.stringify(rolSeleccionado),
+          { headers: this.getAuthHeaders() },
+        )
+        .subscribe({
+          next: () => {
+            this.cargarUsuarios();
+            this.cerrarModal();
+            Swal.fire({
+              icon: "success",
+              title: "¡Rol actualizado!",
+              text: "El rol del usuario se ha modificado correctamente.",
+              confirmButtonColor: "#7c3aed",
+            });
+          },
+          error: (err) => {
+            console.error("Error al actualizar rol", err);
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "No se pudo actualizar el rol.",
+              confirmButtonColor: "#7c3aed",
+            });
+          },
+        });
+    } else {
+      const rolAEliminarOGuardar = Array.isArray(editado.roles)
+        ? editado.roles[0]
+        : editado.roles || "Cliente";
 
-    this.cerrarModal();
+      this.http
+        .post(
+          this.apiUrl,
+          {
+            nombre: editado.nombreCompleto,
+            correo: editado.email,
+            rol: rolAEliminarOGuardar,
+          },
+          { headers: this.getAuthHeaders() },
+        )
+        .subscribe({
+          next: () => {
+            this.cargarUsuarios();
+            this.cerrarModal();
+            Swal.fire({
+              icon: "success",
+              title: "¡Usuario registrado!",
+              text: "Se le ha enviado un correo con su contraseña temporal.",
+              confirmButtonColor: "#7c3aed",
+            });
+          },
+          error: (err) => {
+            console.error("Error detallado al registrar usuario:", err);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Revisa la consola, hubo un error al guardar.",
+              confirmButtonColor: "#7c3aed",
+            });
+          },
+        });
+    }
   }
 
   toggleEstatus(u: Usuario) {
-    this.usuarios.update((lista) =>
-      lista.map((x) => (x.id === u.id ? { ...x, estatus: x.estatus === 'activo' ? 'inactivo' : 'activo' } : x))
-    );
+    if (!u.id) return;
+
+    this.http
+      .post(
+        `${this.apiUrl}/${u.id}/status`,
+        {},
+        { headers: this.getAuthHeaders() },
+      )
+      .subscribe({
+        next: () => {
+          this.cargarUsuarios();
+          Swal.fire({
+            icon: "success",
+            title: "¡Estatus actualizado!",
+            text: "El estado del usuario se ha modificado correctamente.",
+            confirmButtonColor: "#7c3aed",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        },
+        error: (err) => {
+          console.error("Error al cambiar estatus", err);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No se pudo cambiar el estatus del usuario.",
+            confirmButtonColor: "#7c3aed",
+          });
+        },
+      });
+  }
+
+  reenviarCorreo(usuario: Usuario) {
+    if (!usuario.id) return;
+
+    this.http
+      .post(
+        `${this.apiUrl}/${usuario.id}/reset-password`,
+        {},
+        { headers: this.getAuthHeaders() },
+      )
+      .subscribe({
+        next: () => {
+          Swal.fire({
+            icon: "success",
+            title: "¡Correo reenviado!",
+            text: `Se han restablecido las credenciales y enviado a ${usuario.email}`,
+            confirmButtonColor: "#7c3aed",
+          });
+        },
+        error: (err) => {
+          console.error("Error al reenviar credenciales", err);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No se pudo enviar el correo con las nuevas credenciales.",
+            confirmButtonColor: "#7c3aed",
+          });
+        },
+      });
   }
 }
