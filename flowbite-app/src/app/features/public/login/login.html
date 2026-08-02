@@ -2,50 +2,55 @@
 <section class="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-white px-4 py-12">
   <div class="w-full max-w-4xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
 
-    <!-- Columna Izquierda: Formulario -->
+    <!-- Columna Izquierda: Formulario Dinámico -->
     <div class="lg:col-span-6 space-y-6 px-4">
 
-      <!-- Encabezado -->
+      @if (!requiere2FA()) {
+      <!-- FASE 1: LOGIN TRADICIONAL -->
       <div>
         <h1 class="text-4xl font-extrabold text-[#2A114B] tracking-tight">¡Bienvenido!</h1>
-        <p class="mt-1 text-sm text-gray-400">Inicia sesión con tu correo</p>
+        <p class="mt-1 text-sm text-gray-400">Inicia sesión con tu correo corporativo</p>
       </div>
 
-      <!-- Formulario -->
-      <form class="space-y-5" (ngSubmit)="$event.preventDefault(); ingresar()">
+      <form class="space-y-5" (ngSubmit)="$event.preventDefault(); iniciarSesion()">
 
-        @if (errorMessage()) {
-        <div
-          class="rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-600 flex items-start gap-3 transition-all">
-          <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-          </svg>
-          <div class="flex flex-col">
-            <span>{{ errorMessage() }}</span>
-            <span class="text-xs text-red-500 mt-1">Si crees que se trata de un error, por favor contacta al
-              administrador.</span>
+        @if (mensajeError()) {
+        <div class="rounded-xl border border-red-200 bg-red-50 p-4 text-xs text-red-800">
+          <div class="flex items-start gap-2">
+            <svg class="h-4 w-4 text-red-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <div>
+              <span class="font-bold">Error de Autenticación</span>
+              <p class="mt-1 text-red-600 font-medium">
+                {{ mensajeError() }} Si crees que se trata de un problema técnico, contacta a:
+                <a href="mailto:soporte.octocode@gmail.com"
+                  class="underline font-bold hover:text-red-900 transition-colors">
+                  soporte.octocode@gmail.com
+                </a>
+              </p>
+            </div>
           </div>
         </div>
         }
 
         <div>
           <label class="block text-sm font-bold text-gray-900 mb-2">Usuario (Correo)</label>
-          <input required type="email" [ngModel]="correo()" (ngModelChange)="correo.set($event)" name="correo"
-            placeholder="correo@ejemplo.com"
+          <input required type="email" [(ngModel)]="loginData.correo" name="correo" placeholder="correo@ejemplo.com"
             class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:border-[#9B51E0] focus:ring-1 focus:ring-[#9B51E0] outline-none transition-all shadow-xs" />
         </div>
 
         <div>
           <label class="block text-sm font-bold text-gray-900 mb-2">Contraseña</label>
           <div class="relative flex items-center">
-            <input required [type]="mostrarPassword() ? 'text' : 'password'" [ngModel]="password()"
-              (ngModelChange)="password.set($event)" name="password" placeholder="••••••••"
+            <input required [type]="mostrarPassword() ? 'text' : 'password'" [(ngModel)]="loginData.password"
+              name="password" placeholder="••••••••"
               class="w-full rounded-l-xl border border-r-0 border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:border-[#9B51E0] focus:ring-1 focus:ring-[#9B51E0] outline-none transition-all shadow-xs" />
 
-            <!-- Botón del ojito para mostrar/ocultar contraseña -->
             <button type="button" (click)="togglePassword()"
-              class="flex items-center justify-center px-4 py-3 bg-[#9B51E0] text-white rounded-r-xl border border-[#9B51E0] hover:bg-[#863ec9] transition-colors">
+              class="flex items-center justify-center px-4 py-3 bg-[#9B51E0] text-white rounded-r-xl border border-[#9B51E0] hover:bg-[#863ec9] transition-colors focus:outline-none">
               @if (mostrarPassword()) {
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -63,28 +68,93 @@
           </div>
         </div>
 
-        <!-- Botón de Iniciar Sesión (Se bloquea si los campos están vacíos) -->
-        <button type="submit" [disabled]="!correo() || !password() || cargando()"
+        <!-- CONTENEDOR PARA CAPTCHA NUEVO -->
+        <div class="py-2 flex justify-center lg:justify-start">
+          <div class="g-recaptcha" data-sitekey="6LdY9XAtAAAAADmgpNkzap74jCWxi-A8dJrSKKgx"></div>
+        </div>
+
+        <!-- Botón Fase 1 Congelable y con Spinner -->
+        <button type="submit" [disabled]="!loginData.correo || !loginData.password || cargando()"
           class="w-full rounded-xl bg-[#9B51E0] px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-[#863ec9] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
           @if (cargando()) {
-          <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-            viewBox="0 0 24 24">
+          <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor"
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
             </path>
           </svg>
-          <span>Verificando...</span>
+          <span>Verificando credenciales...</span>
           } @else {
           <span>Iniciar Sesión</span>
           }
         </button>
-
       </form>
+
+      } @else {
+      <!-- FASE 2: VERIFICACIÓN DE DOS PASOS (2FA OTP) -->
+      <div>
+        <h1 class="text-4xl font-extrabold text-[#2A114B] tracking-tight">Verificación</h1>
+        <p class="mt-1 text-sm text-gray-400">Protección perimetral de OCTO-CODE</p>
+      </div>
+
+      <div class="bg-violet-50 border border-violet-100 rounded-xl p-4 text-xs text-violet-800">
+        Introducción obligatoria de código de 6 dígitos enviado a la bandeja vinculada:
+        <strong class="text-violet-900 block mt-0.5">{{ correoPara2FA() }}</strong>
+      </div>
+
+      <form class="space-y-5" (ngSubmit)="$event.preventDefault(); verificarCodigo()">
+
+        @if (mensajeError()) {
+        <div class="rounded-xl border border-red-200 bg-red-50 p-4 text-xs text-red-800">
+          <span class="font-bold">Código Inválido</span>
+          <p class="mt-0.5">{{ mensajeError() }}</p>
+        </div>
+        }
+
+        <div>
+          <label class="block text-sm font-bold text-gray-900 mb-2">Código de Seguridad (OTP)</label>
+          <input required type="text" [ngModel]="codigoOtp()" (ngModelChange)="codigoOtp.set($event)" name="codigoOtp"
+            placeholder="000000" maxlength="6"
+            class="w-full text-center tracking-[0.75em] font-black text-lg rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-[#9B51E0] focus:ring-1 focus:ring-[#9B51E0] outline-none transition-all shadow-xs" />
+        </div>
+
+        <!-- Control Cooldown con Cuenta Regresiva -->
+        <div class="text-center">
+          <button type="button" [disabled]="cooldownReenvio() > 0 || cargando()" (click)="reenviarCodigo()"
+            class="text-xs font-bold text-[#9B51E0] hover:text-[#863ec9] disabled:text-gray-400 disabled:cursor-not-allowed transition-colors">
+            @if (cooldownReenvio() > 0) {
+            Reenviar código en {{ cooldownReenvio() }}s
+            } @else {
+            ¿No recibiste el código? Solicitar otro
+            }
+          </button>
+        </div>
+
+        <!-- Botón Fase 2 Congelable y con Spinner -->
+        <div class="flex gap-3">
+          <button type="button" (click)="cancelar2FA()" [disabled]="cargando()"
+            class="w-1/3 rounded-xl border border-gray-200 px-4 py-3 text-sm font-bold text-gray-500 hover:bg-gray-50 transition-colors disabled:opacity-50">
+            Volver
+          </button>
+          <button type="submit" [disabled]="!codigoOtp() || codigoOtp().length < 6 || cargando()"
+            class="w-2/3 rounded-xl bg-[#9B51E0] px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-[#863ec9] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+            @if (cargando()) {
+            <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+              </path>
+            </svg>
+            }
+            <span>Confirmar Acceso</span>
+          </button>
+        </div>
+      </form>
+      }
 
     </div>
 
-
+    <!-- Columna Derecha: Gráfico Estilizado -->
     <div class="lg:col-span-6 hidden lg:flex relative overflow-hidden">
       <svg width="606" height="802" viewBox="0 0 606 802" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="606" height="802" rx="38" fill="url(#paint0_linear_0_1)" />

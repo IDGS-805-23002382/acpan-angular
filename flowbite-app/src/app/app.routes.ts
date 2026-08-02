@@ -1,7 +1,6 @@
 import { Routes } from "@angular/router";
 import { authGuard } from "./guards/auth-guard";
 import { adminGuard } from "./guards/admin-guard";
-
 export const routes: Routes = [
   {
     path: "",
@@ -50,7 +49,7 @@ export const routes: Routes = [
   },
   {
     path: "cliente",
-    canActivate: [authGuard], // <-- CANDADO PARA USUARIOS REGISTRADOS
+    canActivate: [authGuard],
     loadComponent: () =>
       import("./core/layouts/client-layout/client-layout").then(
         (m) => m.ClientLayout,
@@ -80,7 +79,7 @@ export const routes: Routes = [
   },
   {
     path: "admin",
-    canActivate: [adminGuard], // <-- CANDADO VIP SOLO PARA ADMINISTRADORES
+    canActivate: [adminGuard], // 🟢 Permite la entrada al Layout a Admin y Empleado
     loadComponent: () =>
       import("./core/layouts/admin-layout/admin-layout").then(
         (m) => m.AdminLayout,
@@ -95,13 +94,14 @@ export const routes: Routes = [
       },
       {
         path: "usuarios",
+        // canActivate: [soloAdminGuard] 👈 Opcional: Candado extra si el empleado digita la URL manual
         loadComponent: () =>
           import("./features/admin/usuarios/usuarios").then(
             (m) => m.UsuariosAdmin,
           ),
       },
       {
-        path: "comentarios",
+        path: "comentarios", // ✅ Módulo operativo (Visible para Empleado)
         loadComponent: () =>
           import("./features/admin/comentarios/comentarios").then(
             (m) => m.ComentariosAdmin,
@@ -122,14 +122,14 @@ export const routes: Routes = [
           ),
       },
       {
-        path: "materia-prima",
+        path: "materia-prima", // ✅ Módulo operativo (Visible para Empleado)
         loadComponent: () =>
           import("./features/admin/materia-prima/materia-prima").then(
             (m) => m.MateriaPrima,
           ),
       },
       {
-        path: "productos",
+        path: "productos", // ✅ Módulo operativo (Visible para Empleado)
         loadComponent: () =>
           import("./features/admin/productos/productos-admin").then(
             (m) => m.ProductosAdmin,

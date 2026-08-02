@@ -1,78 +1,203 @@
-<div class="flex min-h-screen bg-gray-50">
-  <aside class="hidden w-72 shrink-0 border-r border-gray-100 bg-white lg:block">
-    <div class="flex h-16 items-center gap-2 border-b border-gray-100 px-6">
-      <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-600 text-white font-bold text-sm">A</span>
-      <span class="font-extrabold text-gray-900">Panel Admin</span>
+<div class="flex min-h-screen bg-slate-50 font-sans">
+  <!-- Sidebar para pantallas grandes (Esencia OCTO-CODE Completa) -->
+  <aside class="hidden w-72 shrink-0 border-r border-slate-200 bg-white lg:block shadow-sm relative">
+    <div class="flex h-16 items-center gap-2 border-b border-slate-100 px-6 bg-slate-900">
+      <div
+        class="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-600 text-white shadow-md shadow-violet-500/30">
+        <svg class="h-5 w-5 animate-pulse" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M4.5 12a7.5 7.5 0 0 1 15 0m-15 0a7.5 7.5 0 1 1 15 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077 1.41-.513m14.095-5.13 1.41-.513M5.106 17.785l1.15-.827m11.379-8.16 1.15-.827M8.14 21.27l.707-1.03m6.307-9.19.706-1.03M12 3v1.5m0 16.5V21m-3.077-8.457-.513-1.41m5.13 14.095-.513-1.41M17.785 5.106l-.827 1.15m-8.16 11.379-.827 1.15m3.758-12.495-.707 1.03M9.19 14.86l-.706 1.03" />
+        </svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="font-black text-white tracking-wider text-sm leading-none">OCTO-CODE</span>
+        <span class="text-[10px] text-violet-400 font-bold uppercase tracking-widest mt-0.5">Control Central</span>
+      </div>
     </div>
-    <nav class="space-y-1 px-3 py-6 text-sm">
-      <a routerLink="/admin" routerLinkActive="bg-primary-50 text-primary-700" [routerLinkActiveOptions]="{ exact: true }"
-         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+
+    <nav class="space-y-1 px-4 py-6 text-sm">
+      <a routerLink="/admin" routerLinkActive="bg-violet-50 text-violet-700 shadow-sm"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="flex items-center gap-3 rounded-xl px-4 py-2.5 font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-950 transition-all group">
+        <svg class="h-5 w-5 text-slate-400 group-hover:text-violet-600 transition-colors" fill="none"
+          stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75a2.25 2.25 0 0 1 2.25-2.25h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+        </svg>
         Dashboard
       </a>
 
-      <p class="px-3 pt-4 pb-1 text-xs font-semibold uppercase tracking-wide text-gray-400">Gestión comercial</p>
-      <a routerLink="/admin/usuarios" routerLinkActive="bg-primary-50 text-primary-700"
-         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+      <p class="px-4 pt-5 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">Gestión comercial</p>
+      <a routerLink="/admin/usuarios" routerLinkActive="bg-violet-50 text-violet-700 shadow-sm"
+        class="flex items-center gap-3 rounded-xl px-4 py-2.5 font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-950 transition-all group">
+        <svg class="h-5 w-5 text-slate-400 group-hover:text-violet-600 transition-colors" fill="none"
+          stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0z" />
+        </svg>
         Usuarios
       </a>
-      <a routerLink="/admin/comentarios" routerLinkActive="bg-primary-50 text-primary-700"
-         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+      <a routerLink="/admin/comentarios" routerLinkActive="bg-violet-50 text-violet-700 shadow-sm"
+        class="flex items-center gap-3 rounded-xl px-4 py-2.5 font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-950 transition-all group">
+        <svg class="h-5 w-5 text-slate-400 group-hover:text-violet-600 transition-colors" fill="none"
+          stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M20.25 8.511c.33.018.658.038.987.061a.75.75 0 0 1 .661.748v10.394a.75.75 0 0 1-.66.747c-.329.023-.658.043-.987.061a47.11 47.11 0 0 1-1.63 0c-.329-.018-.658-.038-.987-.061a.75.75 0 0 1-.662-.747V9.32a.75.75 0 0 1 .662-.747c.329-.023.658-.043.987-.061a47.11 47.11 0 0 1 1.63 0ZM6.25 8.511c.33-.018.658-.038.987-.061a.75.75 0 0 1 .661.748v10.394a.75.75 0 0 1-.66.747c-.329.023-.658.043-.987.061a47.11 47.11 0 0 1-1.63 0c-.329-.018-.658-.038-.987-.061a.75.75 0 0 1-.662-.747V9.32a.75.75 0 0 1 .662-.747c.329-.023.658-.043.987-.061a47.11 47.11 0 0 1 1.63 0Z" />
+        </svg>
         Comentarios
       </a>
 
-      <p class="px-3 pt-4 pb-1 text-xs font-semibold uppercase tracking-wide text-gray-400">Cadena de suministro</p>
-      <a routerLink="/admin/proveedores" routerLinkActive="bg-primary-50 text-primary-700"
-         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+      <p class="px-4 pt-5 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">Cadena de suministro</p>
+      <a routerLink="/admin/proveedores" routerLinkActive="bg-violet-50 text-violet-700 shadow-sm"
+        class="flex items-center gap-3 rounded-xl px-4 py-2.5 font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-950 transition-all group">
+        <svg class="h-5 w-5 text-slate-400 group-hover:text-violet-600 transition-colors" fill="none"
+          stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 1.5-.545m-1.5.545v-6.2c0-.115-.013-.23-.039-.34M4.5 17.25h1.5v3H4.5v-3ZM7.5 17.25h1.5v3H7.5v-3ZM10.5 17.25h1.5v3h-1.5v-3Zm3-3h1.5v3h-1.5v-3Zm3 0h1.5v3h-1.5v-3Z" />
+        </svg>
         Proveedores
       </a>
-      <a routerLink="/admin/compras" routerLinkActive="bg-primary-50 text-primary-700"
-         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+      <a routerLink="/admin/compras" routerLinkActive="bg-violet-50 text-violet-700 shadow-sm"
+        class="flex items-center gap-3 rounded-xl px-4 py-2.5 font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-950 transition-all group">
+        <svg class="h-5 w-5 text-slate-400 group-hover:text-violet-600 transition-colors" fill="none"
+          stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 1 1-1.2 0 .75.75 0 0 1 1.2 0zm12.75 0a.75.75 0 1 1-1.2 0 .75.75 0 0 1 1.2 0Z" />
+        </svg>
         Compras a proveedores
       </a>
-      <a routerLink="/admin/materia-prima" routerLinkActive="bg-primary-50 text-primary-700"
-         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+      <a routerLink="/admin/materia-prima" routerLinkActive="bg-violet-50 text-violet-700 shadow-sm"
+        class="flex items-center gap-3 rounded-xl px-4 py-2.5 font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-950 transition-all group">
+        <svg class="h-5 w-5 text-slate-400 group-hover:text-violet-600 transition-colors" fill="none"
+          stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
         Materia prima
       </a>
-      <a routerLink="/admin/productos" routerLinkActive="bg-primary-50 text-primary-700"
-         class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-600 hover:bg-gray-50">
+      <a routerLink="/admin/productos" routerLinkActive="bg-violet-50 text-violet-700 shadow-sm"
+        class="flex items-center gap-3 rounded-xl px-4 py-2.5 font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-950 transition-all group">
+        <svg class="h-5 w-5 text-slate-400 group-hover:text-violet-600 transition-colors" fill="none"
+          stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+        </svg>
         Productos y receta
       </a>
     </nav>
-    <div class="px-3">
-      <a routerLink="/" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50">
+
+    <div class="absolute bottom-4 left-0 w-full px-4">
+      <a routerLink="/"
+        class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors group">
+        <svg class="h-5 w-5 text-slate-400 group-hover:text-slate-600 transition-colors" fill="none"
+          stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+        </svg>
         ← Salir al sitio público
       </a>
     </div>
   </aside>
 
-  <div class="flex-1">
-    <header class="flex h-16 items-center justify-between border-b border-gray-100 bg-white px-6">
-      <button (click)="toggleMenu()" class="text-gray-500 lg:hidden" aria-label="Menú">
-        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+  <div class="flex-1 flex flex-col min-w-0">
+    <!-- Header Principal Dinámico -->
+    <header
+      class="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-6 lg:px-10 shadow-sm z-10">
+      <button (click)="toggleMenu()" class="text-slate-500 lg:hidden focus:outline-none" aria-label="Menú">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
       </button>
-      <span class="font-semibold text-gray-900 lg:hidden">Panel Admin</span>
-      <div class="ml-auto flex items-center gap-3">
-        <span class="hidden text-sm text-gray-500 sm:block">María Delgado</span>
-        <span class="flex h-9 w-9 items-center justify-center rounded-full bg-primary-100 text-sm font-bold text-primary-700">MD</span>
+      <span class="font-black text-slate-900 lg:hidden tracking-wider">OCTO-CODE</span>
+
+      <!-- Sección de perfil de la persona que inició sesión -->
+      <div class="ml-auto flex items-center gap-4">
+        <div class="hidden text-right sm:block">
+          <p class="text-sm font-bold text-slate-900 leading-none">{{ nombreUsuario() }}</p>
+          <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">Operador Principal</p>
+        </div>
+
+        <button (click)="abrirModalPassword()" title="Configuración de Cuenta"
+          class="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-sm font-black text-violet-700 hover:bg-violet-600 hover:text-white hover:shadow-md hover:shadow-violet-600/20 transition-all focus:outline-none">
+          {{ inicialesUsuario() }}
+        </button>
       </div>
     </header>
 
+    <!-- Menú móvil responsivo -->
     @if (menuMovilAbierto()) {
-      <nav class="space-y-1 border-b border-gray-100 bg-white px-3 py-4 text-sm lg:hidden">
-        <a routerLink="/admin" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Dashboard</a>
-        <a routerLink="/admin/usuarios" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Usuarios</a>
-        <a routerLink="/admin/comentarios" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Comentarios</a>
-        <a routerLink="/admin/proveedores" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Proveedores</a>
-        <a routerLink="/admin/compras" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Compras</a>
-        <a routerLink="/admin/materia-prima" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Materia prima</a>
-        <a routerLink="/admin/productos" (click)="toggleMenu()" class="block rounded-lg px-3 py-2 text-gray-600">Productos</a>
-      </nav>
+    <nav class="space-y-1 border-b border-slate-200 bg-white px-4 py-4 text-sm lg:hidden shadow-sm">
+      <a routerLink="/admin" (click)="toggleMenu()"
+        class="block rounded-lg px-3 py-2 font-medium text-slate-600 hover:bg-slate-50">Dashboard</a>
+      <a routerLink="/admin/usuarios" (click)="toggleMenu()"
+        class="block rounded-lg px-3 py-2 font-medium text-slate-600 hover:bg-slate-50">Usuarios</a>
+      <a routerLink="/admin/comentarios" (click)="toggleMenu()"
+        class="block rounded-lg px-3 py-2 font-medium text-slate-600 hover:bg-slate-50">Comentarios</a>
+      <a routerLink="/admin/proveedores" (click)="toggleMenu()"
+        class="block rounded-lg px-3 py-2 font-medium text-slate-600 hover:bg-slate-50">Proveedores</a>
+      <a routerLink="/admin/compras" (click)="toggleMenu()"
+        class="block rounded-lg px-3 py-2 font-medium text-slate-600 hover:bg-slate-50">Compras</a>
+      <a routerLink="/admin/materia-prima" (click)="toggleMenu()"
+        class="block rounded-lg px-3 py-2 font-medium text-slate-600 hover:bg-slate-50">Materia prima</a>
+      <a routerLink="/admin/productos" (click)="toggleMenu()"
+        class="block rounded-lg px-3 py-2 font-medium text-slate-600 hover:bg-slate-50">Productos</a>
+    </nav>
     }
 
-    <main class="p-6 lg:p-10">
+    <!-- Contenedor de Vistas del Router -->
+    <main class="p-6 lg:p-10 flex-1 overflow-y-auto">
       <router-outlet />
     </main>
   </div>
 </div>
+
+<!-- Modal de Seguridad Estilizado -->
+@if (modalPasswordAbierto()) {
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
+  <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-slate-100 transition-all">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0V10.5m-2.25 10.5h13.5c.621 0 1.125-.504 1.125-1.125V11.25c0-.621-.504-1.125-1.125-1.125H5.25c-.621 0-1.125.504-1.125 1.125v7.875c0 .621.504 1.125 1.125 1.125z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="text-base font-bold text-slate-900">Seguridad de la cuenta</h3>
+        <p class="text-xs text-slate-400">Personaliza tus accesos en el sistema.</p>
+      </div>
+    </div>
+
+    <p class="text-xs text-slate-500 mb-6 bg-slate-50 border border-slate-100 rounded-xl p-3">
+      Estás conectado como <strong class="text-slate-700">{{ nombreUsuario() }}</strong>. Se recomienda configurar una
+      contraseña propia y segura para inhabilitar de forma definitiva la clave temporal enviada por el administrador.
+    </p>
+
+    <div class="space-y-4">
+      <div>
+        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wide mb-2">Contraseña actual</label>
+        <input type="password" [(ngModel)]="passwordData.passwordActual"
+          class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm focus:border-violet-500 focus:outline-none transition-colors"
+          placeholder="Escribe tu clave temporal actual" />
+      </div>
+
+      <div>
+        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wide mb-2">Nueva Contraseña</label>
+        <input type="password" [(ngModel)]="passwordData.nuevaPassword"
+          class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm focus:border-violet-500 focus:outline-none transition-colors"
+          placeholder="Configura tu nueva contraseña de acceso" />
+      </div>
+    </div>
+
+    <div class="mt-6 flex justify-end gap-3 border-t border-slate-100 pt-4">
+      <button type="button" (click)="cerrarModalPassword()"
+        class="rounded-xl px-4 py-2.5 text-xs font-bold text-slate-500 hover:bg-slate-100 transition-colors">
+        Cancelar
+      </button>
+      <button type="button" (click)="cambiarPassword()"
+        class="rounded-xl bg-violet-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-violet-700 transition-all shadow-sm shadow-violet-600/10">
+        Actualizar accesos
+      </button>
+    </div>
+  </div>
+</div>
+}

@@ -129,7 +129,7 @@ export class UsuariosAdmin implements OnInit {
         .post(
           this.apiUrl,
           {
-            nombre: editado.nombreCompleto,
+            nombreCompleto: editado.nombreCompleto, // Mapeado exacto a la propiedad del backend
             correo: editado.email,
             rol: rolAEliminarOGuardar,
           },
@@ -151,7 +151,7 @@ export class UsuariosAdmin implements OnInit {
             Swal.fire({
               icon: "error",
               title: "Oops...",
-              text: "Revisa la consola, hubo un error al guardar.",
+              text: "Hubo un error al guardar el nuevo usuario.",
               confirmButtonColor: "#7c3aed",
             });
           },
@@ -192,33 +192,47 @@ export class UsuariosAdmin implements OnInit {
       });
   }
 
-  reenviarCorreo(usuario: Usuario) {
-    if (!usuario.id) return;
-
-    this.http
-      .post(
-        `${this.apiUrl}/${usuario.id}/reset-password`,
-        {},
-        { headers: this.getAuthHeaders() },
-      )
-      .subscribe({
-        next: () => {
-          Swal.fire({
-            icon: "success",
-            title: "¡Correo reenviado!",
-            text: `Se han restablecido las credenciales y enviado a ${usuario.email}`,
-            confirmButtonColor: "#7c3aed",
+  confirmarRestablecer(usuarioId: string, nombreCompleto: string) {
+    Swal.fire({
+      title: "¿Restablecer contraseña?",
+      text: `Se generará una nueva clave temporal para ${nombreCompleto}. Su contraseña actual dejará de funcionar inmediatamente.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#7c3aed",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Sí, enviar correo",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.http
+          .post(
+            `https://localhost:7227/api/auth/reset-user-password/${usuarioId}`,
+            {},
+            { headers: this.getAuthHeaders() },
+          )
+          .subscribe({
+            next: () => {
+              Swal.fire({
+                icon: "success",
+                title: "¡Despachada!",
+                text: "La clave temporal ha sido enviada al correo.",
+                confirmButtonColor: "#7c3aed",
+              });
+            },
+            error: (err) => {
+              console.error(
+                "Error al restablecer contraseña por administrador:",
+                err,
+              );
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "No se pudo restablecer la contraseña.",
+                confirmButtonColor: "#7c3aed",
+              });
+            },
           });
-        },
-        error: (err) => {
-          console.error("Error al reenviar credenciales", err);
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "No se pudo enviar el correo con las nuevas credenciales.",
-            confirmButtonColor: "#7c3aed",
-          });
-        },
-      });
+      }
+    });
   }
 }

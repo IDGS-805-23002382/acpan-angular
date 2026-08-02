@@ -10,13 +10,14 @@ export const adminGuard: CanActivateFn = (route, state) => {
 
   if (token) {
     const userRole = authService.getRoleFromToken(token);
-    // Si es admin, tiene pase VIP
-    if (userRole === "admin") {
+
+    // 🛡️ ACCESO PERMITIDO: Tanto "admin" como "Empleado" tienen pase a la zona de gestión
+    if (userRole === "admin" || userRole === "Empleado") {
       return true;
     }
   }
 
-  // Si no tiene token o si su rol es otro (ej. cliente queriendo entrar a admin), lo rebotamos
+  // Si no tiene token o si su rol es "Cliente", lo rebotamos al login
   router.navigate(["/login"]);
   return false;
 };
